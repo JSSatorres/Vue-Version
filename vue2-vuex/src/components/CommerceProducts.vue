@@ -35,6 +35,7 @@
 // console.log(api)
 // console.log(productsOnStock)
 export default {
+  name: 'CommerceProducts',
   //   computed: {
   //     ...mapGetters('products', {
   //       allProducts: 'getAllProducts'
@@ -48,6 +49,11 @@ export default {
   //   created() {
   //     this.$store.dispatch('products/getAllProducts')
   //   }
+  // computed: {
+  //   products() {
+  //     return this.$store.getters.getProductsOnStock
+  //   }
+  // },
   async created() {
     try {
       this.$store.dispatch('getProducts')

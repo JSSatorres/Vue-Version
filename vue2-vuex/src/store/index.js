@@ -38,11 +38,10 @@ export default new Vuex.Store({
   },
   actions: {
     getProduct({ commit }) {
-      return new Promise(resolve => {
-        api.getProducts(products => {
-          commit('setProducts', products)
-          resolve()
-        })
+      const products = api.getProducts(products => {
+        commit('setProducts', products)
+        console.log(products)
+        return products
       })
     },
     addProductToCart(context, product) {
@@ -60,6 +59,16 @@ export default new Vuex.Store({
     getProductsOnStock(state) {
       return state.products.filter(product => {
         return product.inventory > 0
+      })
+    },
+    getProductsOnCart(state) {
+      return state.cart.map(item => {
+        const product = state.products.find(product => product.id === item.id)
+        return {
+          title: product.title,
+          price: product.price,
+          quantity: item.quantity
+        }
       })
     }
   },

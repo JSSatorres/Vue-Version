@@ -54,6 +54,12 @@
 // import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  name: 'CommerceCart',
+  computed: {
+    cartItems() {
+      return this.$store.getters.getProductsOnCart
+    }
+  }
   // computed: {
   //   ...mapGetters('cart', {
   //     cartItems: 'getCartItems',
