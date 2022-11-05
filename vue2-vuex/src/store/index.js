@@ -40,9 +40,9 @@ export default new Vuex.Store({
     getProduct({ commit }) {
       const products = api.getProducts(products => {
         commit('setProducts', products)
-        console.log(products)
         return products
       })
+      console.log(products)
     },
     addProductToCart(context, product) {
       if (product.inventory === 0) return
