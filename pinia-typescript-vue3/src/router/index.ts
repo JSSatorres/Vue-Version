@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
 import CounterView from '../views/CounterView.vue'
+import Destinatiny from '../components/Destinatiny.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -13,6 +14,11 @@ const routes: RouteRecordRaw[] = [
     path: '/counter',
     name:'Counter',
     component:CounterView
+  },
+  {
+    path: '/destination/:id',
+    name:'Destinatiny',
+    component:()=>import('../components/Destinatiny.vue')
   }
 ]
 
