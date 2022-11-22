@@ -1,8 +1,9 @@
 <template>
-<div id="nav">
-  <router-link to="/" class="navbar-a">Home</router-link>
-  <router-link to="/counter">Counter</router-link>
-</div>
+  <div id="nav">
+    <router-link to="/" class="navbar-a">Home</router-link>
+    <router-link to="/counter">Counter</router-link>
+    <router-link to="/destination/12">Destiny</router-link>
+  </div>
 </template>
 
 <script setup lang="ts">
