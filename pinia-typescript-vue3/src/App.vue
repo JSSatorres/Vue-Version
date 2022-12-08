@@ -1,15 +1,13 @@
 <template>
-  <Navbar />
+  <!-- <Navbar /> -->
+    <router-link to="/dfd">Home</router-link>
+  {{ ' ' }}
+  <router-link to="/countersds">Counter</router-link>
+  <h2>joderere</h2>
   <router-view></router-view>
 </template>
 
-<script setup lang="ts">
-  import Navbar from './components/Navbar.vue' 
 
- 
-
-
-</script>
 
 
 

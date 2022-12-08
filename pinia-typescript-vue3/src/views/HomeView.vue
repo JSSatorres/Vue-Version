@@ -3,7 +3,7 @@
   <h1>Home view: {{ counterStore.count}}</h1>
 </template>
 
-<script setup lang="ts">
+<script  lang="ts" setup>
 // import Navbar from '../components/Navbar.vue'
 import {useCounterStore} from '../stores/counter'
 
