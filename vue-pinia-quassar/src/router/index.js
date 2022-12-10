@@ -1,6 +1,8 @@
 import { route } from 'quasar/wrappers'
+import { nextTick } from 'vue'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
+import { useUserStore } from 'src/stores/user-store'
 
 /*
  * If not building with SSR mode, you can
@@ -12,6 +14,7 @@ import routes from './routes'
  */
 
 export default route(function (/* { store, ssrContext } */) {
+
   const createHistory = process.env.SERVER
     ? createMemoryHistory
     : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory)
@@ -25,6 +28,23 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE)
   })
+  Router.beforeEach( async (to, from, next)=>{
+    const userStore =   useUserStore()
+    const requireAuth = to.meta.auth
 
+    if (userStore.token) {
+      return next()
+    }
+
+    if (requireAuth || sessionStorage.getItem('user')) {
+      await userStore.refreshToken()
+
+      if (userStore.token) {    
+          return next()
+        }
+      return next('/login')
+    }
+    return next()
+  })
   return Router
 })
