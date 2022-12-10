@@ -15,7 +15,35 @@
           Quasar App
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div id="accessBtn"> 
+          <q-btn
+            color="dark" 
+            to="/"
+          >
+            inicio
+          </q-btn>
+          <q-btn
+            color="green"
+            @click="userStore.access"
+            v-if="!userStore.token"
+          >
+            Login
+          </q-btn>
+          <q-btn
+            color="red"
+            @click="logout"
+            v-if="userStore.token"
+          >
+            Logout
+          </q-btn>
+          <q-btn
+            color="orange"
+            to="protected"
+            v-if="userStore.token"
+          >
+            Protected
+          </q-btn>
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -45,11 +73,24 @@
   </q-layout>
 </template>
 
-<script>
-import { defineComponent, ref } from 'vue'
+<script setup>
+import { ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import { useUserStore } from '../stores/user-store'
+import { useRouter } from 'vue-router'
 
-const linksList = [
+const userStore = useUserStore()
+const leftDrawerOpen = ref(false)
+const router = useRouter()
+
+const logout = async () => {
+  await userStore.logout()
+  router.push('/login')
+}
+const toggleLeftDrawer = () => {
+      leftDrawerOpen.value = !leftDrawerOpen.value
+}
+const essentialLinks = [
   {
     title: 'Docs',
     caption: 'quasar.dev',
@@ -91,26 +132,13 @@ const linksList = [
     caption: 'Community Quasar projects',
     icon: 'favorite',
     link: 'https://awesome.quasar.dev'
+  },  
+  {
+    title: 'Ruta de mierda',
+    caption: 'Community Quasar projects',
+    icon: 'favorite',
+    link: 'https://awesome.quasar.dev'
   }
 ]
 
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: {
-    EssentialLink
-  },
-
-  setup () {
-    const leftDrawerOpen = ref(false)
-
-    return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
 </script>
