@@ -23,16 +23,16 @@
             inicio
           </q-btn>
           <q-btn
+            v-if="!userStore.token"
             color="green"
             @click="userStore.access"
-            v-if="!userStore.token"
           >
             Login
           </q-btn>
           <q-btn
+            v-if="userStore.token"
             color="red"
             @click="logout"
-            v-if="userStore.token"
           >
             Logout
           </q-btn>
