@@ -15,35 +15,26 @@
           Quasar App
         </q-toolbar-title>
 
-        <div id="accessBtn"> 
-          <q-btn
-            color="dark" 
-            to="/"
-          >
-            inicio
-          </q-btn>
-          <q-btn
-            v-if="!userStore.token"
-            color="green"
-            @click="userStore.access"
-          >
-            Login
-          </q-btn>
-          <q-btn
-            v-if="userStore.token"
-            color="red"
-            @click="logout"
-          >
-            Logout
-          </q-btn>
-          <q-btn
-            color="orange"
-            to="protected"
-            v-if="userStore.token"
-          >
-            Protected
-          </q-btn>
-        </div>
+        <q-btn class="q-mr-sm" color="green" to="/login" v-if="!userStore.token"
+          >Login</q-btn
+        >
+        <q-btn color="green" to="/register" v-if="!userStore.token"
+          >Register</q-btn
+        >
+
+        <q-btn class="q-mr-sm" color="dark" to="/" v-if="userStore.token"
+          >Inicio</q-btn
+        >
+        <q-btn
+          class="q-mr-sm"
+          color="red"
+          @click="logout"
+          v-if="userStore.token"
+          >Logout</q-btn
+        >
+        <q-btn color="orange" to="/protected" v-if="userStore.token"
+          >Protected</q-btn
+        >
       </q-toolbar>
     </q-header>
 
@@ -74,19 +65,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
-import { useUserStore } from '../stores/user-store'
-import { useRouter } from 'vue-router'
+import { ref } from "vue";
+import EssentialLink from "components/EssentialLink.vue";
+import { useUserStore } from "../stores/user-store";
+import { useRouter } from "vue-router";
 
-const userStore = useUserStore()
-const leftDrawerOpen = ref(false)
-const router = useRouter()
+const leftDrawerOpen = ref(false);
+const userStore = useUserStore();
+const router = useRouter();
 
 const logout = async () => {
   await userStore.logout()
   router.push('/login')
 }
+const accessUser = async () => {
+  await userStore.access();
+  router.push("/");
+};
 const toggleLeftDrawer = () => {
       leftDrawerOpen.value = !leftDrawerOpen.value
 }
