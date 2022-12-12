@@ -6,11 +6,11 @@ export const useUserStore = defineStore('user', () => {
   const token = ref(null)
   const expiresIn = ref(null)
 
-  const access = async () => {
+  const access = async (email, password) => {
     try {
       const res = await api.post("auth/login", {
-        email:"algotragico@test.com",
-        password: "123456"
+        email,
+        password
       })
       token.value = res.data.token;
       expiresIn.value = res.data.expiresIn;
@@ -18,7 +18,7 @@ export const useUserStore = defineStore('user', () => {
       console.log("access desde store",token.value);
       setTime()
     } catch (error) {
-      console.log(error)
+      throw error.response.data
     }
   }
   
