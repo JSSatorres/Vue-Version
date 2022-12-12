@@ -21,7 +21,25 @@ export const useUserStore = defineStore('user', () => {
       throw error.response.data
     }
   }
-  
+
+  const register = async (email, password, repassword, userName) => {
+    try {
+      const res = await api.post("auth/register", {
+        userName,
+        email,
+        password,
+        repassword
+      })
+      token.value = res.data.token;
+      expiresIn.value = res.data.expiresIn;
+      sessionStorage.setItem("user", true)
+      console.log("register desde store",token.value);
+      setTime()
+    } catch (error) {
+      throw error.response.data
+    }
+  }
+
   const refreshToken = async () =>{
     try {
       const res = await api.get("auth/refresh")
@@ -65,6 +83,7 @@ export const useUserStore = defineStore('user', () => {
     token,
     expiresIn,
     access,
+    register,
     refreshToken,
     logout
   }
