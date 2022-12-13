@@ -5,7 +5,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { 
-        path: 'home',
+        path: '',
         component: () => import('pages/IndexPage.vue'),
         meta: {
           auth: true
