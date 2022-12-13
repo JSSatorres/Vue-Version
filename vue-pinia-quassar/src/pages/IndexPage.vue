@@ -1,48 +1,20 @@
 <template>
   <q-page padding>
-    <q-btn @click="createLink"> Create link</q-btn>
-    {{ userStore.token }}
+    <q-btn @click="linkStore.createLink('as.com')"> Create link</q-btn>
+
+    <!-- {{ linkStore.links}} -->
+    <div v-for="(link, index) in linkStore.links" :key="index">
+      <p> {{ link.longLink }}</p>
+
+    </div>
   </q-page>
 </template>
 
 <script setup>
-import { api } from 'src/boot/axios'
+import {useLinkStore} from '../stores/link-store'
+  const linkStore = useLinkStore()
 
-import {useUserStore} from '../stores/user-store'
-const userStore = useUserStore()
-
-userStore.refreshToken()
-
-const logoutSesion = () => {
-  console.log("oli");
-  userStore.logout()
-}
-// const accessSesion = () => {
-//   access()
-// }
-// const logoutSesion = () => {
-//   console.log("oli");
-//   logout()
-// }
-const createLink = async () => {
- try {
-  const res = await api({
-    method: 'POST',
-    url:'link',
-    headers:{
-      'Content-Type': 'application/json',
-      'Authorization':'Bearer ' + userStore.token 
-    },
-    data:{
-      longLink: "http://github.com/JSSatorres/Trello-App-Vue",
-    }
-    // 'links'
-    })
-
-    console.log(res);
- } catch (error) {
-  console.log(error);
- }
-}
+  // const allLinks =  linkStore.getLinks()
+  // const linkDraw = allLinks.map((link)=> link.longLink)
   
 </script>
