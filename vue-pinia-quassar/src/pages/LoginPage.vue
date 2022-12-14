@@ -36,9 +36,9 @@ import {useRouter} from 'vue-router'
 
 const userStore = useUserStore()
 const router = useRouter()
-const email = ref('')
+const email = ref('algotragico@test.com')
 // algotragico@test.com
-const password = ref('')
+const password = ref('123456')
 const $q = useQuasar()
 
 const handleSubmit = async () =>{
